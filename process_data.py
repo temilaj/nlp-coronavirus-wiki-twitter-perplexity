@@ -2,7 +2,10 @@ import spacy
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from utils import scrape_sub_pages, get_root_page_data, write_to_file
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
+from utils import scrape_sub_pages, get_root_page_data, write_to_file, build_frequency, get_most_freqeuent_words
 
 # spacy_nlp = spacy.load('en_core_web_sm', disable=['tagger', 'parser', 'ner'])
 nltk.download('stopwords')
@@ -24,7 +27,9 @@ def tokenize(doc):
     return tokens
 
 def lemmatize(doc):
-    lemmas = [word.lemma_.lower()  for word in doc if not (word.is_stop or word.is_punct) ]
+
+    # lemmas = [word.lemma_.lower()  for word in doc if not (word.is_stop or word.is_punct) ]
+    lemmas = [word.lemma_.lower() for word in doc]
     return lemmas
 
 def pre_process_text(file, lemma_file):
@@ -45,6 +50,15 @@ def pre_process_text(file, lemma_file):
         lemmas = [word.lemma_.lower()  for word in doc if not (word.is_stop or word.is_punct) ]
         all_lemmas += lemmas
         index += step;
-
     
     write_to_file(" ".join(all_lemmas), lemma_file)
+
+
+def get_word_frequency(file):
+    f = open(file, "r")
+    lemmas = f.read().split()
+    word_frequency = build_frequency(lemmas)
+    top_words = get_most_freqeuent_words(word_frequency, 20)
+    return word_frequency, top_words
+
+

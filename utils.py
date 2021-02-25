@@ -57,12 +57,14 @@ def write_to_file(document, file):
     print("file write to disk complete")
 
 def build_frequency(token_array):
+    spec_chars = ["\u200b", "edit"]
     freqs = {}
     for token in token_array:
-        if token in freqs:
-            freqs[token] += 1
-        else:
-            freqs[token] = 1
+        if (token not in spec_chars and len(token) > 1):
+            if token in freqs:
+                freqs[token] += 1
+            else:
+                freqs[token] = 1
     return freqs
 
 def get_most_freqeuent_words(word_frequency, count):

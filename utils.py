@@ -1,6 +1,8 @@
 import requests
+from os import getcwd
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
 from collections import Counter
 
 def get_root_page_data(url):
@@ -70,3 +72,11 @@ def build_frequency(token_array):
 def get_most_freqeuent_words(word_frequency, count):
     top_tokens = dict(Counter(word_frequency).most_common(count))
     return top_tokens
+
+def get_tweets(tweet_type):
+    tweet_file = f"{getcwd()}/data/cleaned_tweets.csv"
+    tweets = pd.read_csv(tweet_file)
+    if (tweet_type == "train"):
+        return tweets['text_lemmatized'].tolist()[:9000]
+    elif(tweet_type == "test"):
+        return tweets['text_lemmatized'].tolist()[9000:]

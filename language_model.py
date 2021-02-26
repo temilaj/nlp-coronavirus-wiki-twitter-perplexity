@@ -30,7 +30,6 @@ def unigram_model(train_sentences):
         print("PP({0}):{1}".format(test_sentences[i], model.perplexity(test)))
 
 def bigram_model(train_sentences):
-    train_sentences = ['an apple', 'an orange']
     tokenized_text = [list(map(str.lower, nltk.tokenize.word_tokenize(sent))) for sent in train_sentences]
 
     n = 2
@@ -53,7 +52,13 @@ def bigram_model(train_sentences):
         print("PP({0}):{1}".format(test_sentences[i], model.perplexity(test)))
 
 def generate_model(raw_root_page_content_file):
-    sentences = extract_sentences(raw_root_page_content_file, 9000)
+    sentences = extract_sentences(raw_root_page_content_file, 900)
+    print('sentences[100]')
+    print(sentences[100])
+    print('sentences[200]')
+    print(sentences[200])
+    print('sentences[300]')
+    print(sentences[300])
     print(len(sentences))
     # print("sentences", sentences)
     # sentences = ['an apple', 'an orange']

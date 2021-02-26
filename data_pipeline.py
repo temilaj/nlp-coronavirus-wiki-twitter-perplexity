@@ -31,8 +31,8 @@ def clean_text(text):
 def fetch_data(root_page_content_file, all_page_content_file, raw_page_content_file):
     # wikipedia has a HTTP 301 redirect from https://en.wikipedia.org/wiki/COVID-19  to https://en.wikipedia.org/wiki/Coronavirus_disease_2019
     linksToScrape, root_page_content = get_root_page_data(url="https://en.wikipedia.org/wiki/Coronavirus_disease_2019")
-    all_wiki_content = scrape_sub_pages(root_page_content, linksToScrape)
-    raw_page_content = root_page_content
+    all_wiki_content, sentence_page_content = scrape_sub_pages(root_page_content, linksToScrape)
+    raw_page_content = sentence_page_content
 
     root_page_content = clean_text(root_page_content)
     all_wiki_content = clean_text(all_wiki_content)
@@ -102,7 +102,7 @@ def extract_sentences(file, length):
 
     tokens = nltk.sent_tokenize(content)
     sentences = tokens[:length]
-    
+
     # doc = spacy_nlp(content)
     # sentences = list(doc.sents)[:length]
     return sentences

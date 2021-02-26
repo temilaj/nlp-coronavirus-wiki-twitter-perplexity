@@ -1,0 +1,26 @@
+#!/bin/bash -l
+
+# Submit job with the command: qsub job.qsub
+
+# Set the runtime limit (default 12 hours):
+#$ -l h_rt=12:00:00
+
+# Send email when the job is done (default: no email is sent)
+#$ -m e
+
+# Give the job a name (default: script name)
+#$ -N py_nlp_wiki
+
+# Combine output and error streams
+#$-j y
+
+#$-P sc505grp
+
+# Load the desired version of Python.
+module load python3/3.7.7
+module load nltk/3.5
+module load spacy/3.0.3
+module load beautifulsoup4/4.9.1
+
+# Run the Python script.
+python index.py

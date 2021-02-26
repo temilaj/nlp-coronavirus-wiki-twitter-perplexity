@@ -42,13 +42,20 @@ def get_page_content(url):
 def scrape_sub_pages(root_page_content, linksToScrape):
     base_url = "https://en.wikipedia.org"
     all_wiki_content = root_page_content
+    index = 0
+    sentence_page_content = ''
     for link in linksToScrape:
         full_url = f"{base_url}{link}"
         print(f"Parsing page content for {full_url}")
         current_page_content = get_page_content(full_url)
         all_wiki_content = all_wiki_content + " " + current_page_content
+        # include more pages to increase the number of sentences
+        if (index < 3):
+            sentence_page_content = all_wiki_content
+            index += 1
+
     print("Parsing content complete")
-    return all_wiki_content
+    return all_wiki_content, sentence_page_content
 
 
 def write_to_file(document, file):
